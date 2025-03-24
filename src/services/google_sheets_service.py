@@ -2,12 +2,15 @@ import os
 import pandas as pd
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
+from dotenv import load_dotenv
+
+load_dotenv()  # Load environment variables from .env file
 
 class GoogleSheetsService:
     def __init__(self):
         self.SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
-        self.SERVICE_ACCOUNT_FILE = os.path.join(os.path.dirname(__file__), '..', 'config', 'service_account.json')
-        self.SPREADSHEET_ID = '14hHqe54wx4dKcfig2v5-17zCxtBBoEypejfK1yemTJw'  # Replace with your actual spreadsheet ID
+        self.SERVICE_ACCOUNT_FILE = os.getenv('SERVICE_ACCOUNT_FILE')
+        self.SPREADSHEET_ID = os.getenv('SPREADSHEET_ID')  # Replace with your actual spreadsheet ID
         self.RANGE_NAME = 'Incident Reporting'  # Adjust the range as needed
 
         self.creds = service_account.Credentials.from_service_account_file(
