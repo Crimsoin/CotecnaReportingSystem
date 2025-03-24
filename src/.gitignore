@@ -1,0 +1,12 @@
+# .gitignore
+# Ignore service account JSON file
+src/config/service_account.json
+
+# Ignore Python file containing secrets
+src/config/google_sheets_service.py
+
+# Other common ignores
+*.log
+*.pyc
+__pycache__/
+.env
