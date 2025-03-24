@@ -1,0 +1,212 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background: #000080;
+    color: #ffffff;
+    padding: 10px 0;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header .logo {
+    position: absolute;
+    left: 20px;
+    height: 30px; /* Adjust the height as needed */
+    width: auto; /* Maintain aspect ratio */
+}
+
+h1 {
+    margin: 0;
+}
+
+.container {
+    width: 100%;
+    margin: auto;
+    overflow: hidden;
+    border-radius: 20px;  /* Add rounded corners */
+    position: relative;  /* Ensure the container is the reference for absolute positioning */
+    padding-bottom: 40px; /* Add padding to ensure space for the report count */
+}
+
+.table-controls {
+    display: flex;
+    align-items: center;  /* Center vertically */
+    gap: 10px;
+    margin-top: 20px;
+    margin-left: 0px; /* Adjust as needed */
+    margin-bottom: 10px; /* Adjust as needed to control the gap */
+    position: relative;
+    transform: translateX(20px);
+}
+
+.table-container {
+    width: calc(100% - 40px);  /* Adjust width to add margins */
+    overflow: auto;  /* Enable both horizontal and vertical scrolling */
+    margin: 0px auto;  /* Center the table horizontally */
+    position: relative;
+    max-height: 750px; /* Adjust height as needed */
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;  /* Remove margin to ensure the table fits within the container */
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+.table th, .table td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 12px;
+}
+
+.table th {
+    background-color: #000080;
+    color: white;
+    white-space: nowrap;  /* Prevent text wrapping */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    user-select: none;  /* Prevent text selection */
+}
+
+.table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table tr:hover {
+    background-color: #ddd;
+}
+
+.table td.checkbox-cell {
+    text-align: center;  /* Center the checkbox horizontally */
+    vertical-align: middle;  /* Center the checkbox vertically */
+}
+
+.button {
+    background-color: #000080;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #45a049;
+}
+
+input[type="checkbox"] {
+    transform: scale(1.2);  /* Adjust the size of the checkboxes */
+    margin: 5px;
+}
+
+#report-count {
+    position: relative;
+    margin: 7px 25px;  /* Adjust margins to control position */
+    font-size: 16px;
+    font-weight: bold;
+    color: #949494;
+    clear: both;  /* Ensure the element is not overlapped by floating elements */
+    display: flex;  /* Display spans and dividers in a single line */
+    flex-wrap: wrap;  /* Allow wrapping if necessary */
+    gap: 10px;  /* Add space between items */
+}
+
+#report-count span, #report-count .divider {
+    margin: 0;  /* Remove default margins */
+}
+
+#report-count .divider {
+    color: #000;  /* Set the color of the dividers */
+    padding: 0 5px;  /* Add padding to the dividers */
+    color: #949494;
+}
+
+/* Modal styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto; /* 10% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%; /* Adjust width as needed */
+    border-radius: 10px; /* Add rounded corners */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Add shadow */
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal h2 {
+    margin-top: 0;
+}
+
+.modal h3 {
+    margin-bottom: 10px;
+}
+
+.modal label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.modal button {
+    background-color: #000080;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.modal button:hover {
+    background-color: #45a049;
+}
+
+/* Adjust vertical gap inside modal-content */
+.modal-content h3 {
+    margin-top: 20px; /* Add top margin to h3 elements */
+}
+
+.modal-content label {
+    margin-bottom: 15px; /* Add bottom margin to label elements */
+}
+
+.modal-content button {
+    margin-top: 30px; /* Add top margin to button elements */
+}
+

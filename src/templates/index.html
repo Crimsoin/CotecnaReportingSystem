@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Sheets Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo">
+        <h1>HSE Incident and Data Reporting</h1>
+    </header>
+    <main class="container">
+        <section id="data-display">
+            <div class="table-controls">
+                <button class="button" id="filters-button">Filters</button>
+                <button class="button" id="generate-report-button">Generate Report</button>
+            </div>
+            <div class="table-container">
+                <table class="table" id="data-table">
+                    <thead>
+                        <tr>
+                            <th class="checkbox-cell"><input type="checkbox" id="select-all"></th> <!-- Checkbox to select/deselect all -->
+                            <th>Timestamp</th>
+                            <th onclick="sortTable(2)">Email Address</th>
+                            <th onclick="sortTable(3)">Commodity</th>
+                            <th onclick="sortTable(4)">Location Covered</th>
+                            <th onclick="sortTable(5)">Name</th>
+                            <th onclick="sortTable(6)">Position</th>
+                            <th onclick="sortTable(7)">Date of Report</th>
+                            <th onclick="sortTable(8)">Location of Incident</th>
+                            <th onclick="sortTable(9)">Incident Date</th>
+                            <th onclick="sortTable(10)">Type of Incident</th>
+                            <th>Brief information about the incident</th>
+                            <th>Was Anyone Injured?</th>
+                            <th>Worksite Type</th>
+                            <th>Job Function</th>
+                            <th>Name (Cotecna)</th>
+                            <th>Position (Cotecna)</th>
+                            <th>Involvement (Cotecna)</th>
+                            <th>Name (Subcontractor)</th>
+                            <th>Position (Subcontractor)</th>
+                            <th>Involvement (Subcontractor)</th>
+                            <th>Name (Third-Party People)</th>
+                            <th>Position (Third-Party People)</th>
+                            <th>Involvement (Third-Party People)</th>
+                            <th>Immediate Action Taken</th>
+                            <th>Root Cause Analysis</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in data %}
+                            <tr>
+                                <td class="checkbox-cell"><input type="checkbox" class="row-checkbox"></td> <!-- Checkbox for each row -->
+                                <td>{{ row['Timestamp'] }}</td>
+                                <td>{{ row['Email Address'] }}</td>
+                                <td>{{ row['Commodity'] }}</td>
+                                <td>{{ row['Location Covered'] }}</td>
+                                <td>{{ row['Name'] }}</td>
+                                <td>{{ row['Position'] }}</td>
+                                <td>{{ row['Date of Report'] }}</td>
+                                <td>{{ row['Location of Incident'] }}</td>
+                                <td>{{ row['Incident Date'] }}</td>
+                                <td>{{ row['Type of Incident'] }}</td>
+                                <td>{{ row['Brief information about the incident'] }}</td>
+                                <td>{{ row['Was Anyone Injured?'] }}</td>
+                                <td>{{ row['Worksite Type'] }}</td>
+                                <td>{{ row['Job Function'] }}</td>
+                                <td>{{ row['Name (Cotecna)'] }}</td>
+                                <td>{{ row['Position (Cotecna)'] }}</td>
+                                <td>{{ row['Involvement (Cotecna)'] }}</td>
+                                <td>{{ row['Name (Subcontractor)'] }}</td>
+                                <td>{{ row['Position (Subcontractor)'] }}</td>
+                                <td>{{ row['Involvement (Subcontractor)'] }}</td>
+                                <td>{{ row['Name (Third-Party People)'] }}</td>
+                                <td>{{ row['Position (Third-Party People)'] }}</td>
+                                <td>{{ row['Involvement (Third-Party People)'] }}</td>
+                                <td>{{ row['Immediate Action Taken'] }}</td>
+                                <td>{{ row['Root Cause Analysis'] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div id="report-count">
+                <span>No. of Reports: 0</span><span class="divider">|</span>
+                <span>Petroleum: 0</span><span class="divider">|</span>
+                <span>Minerals: 0</span><span class="divider">|</span>
+                <span>Consumer Goods: 0</span><span class="divider">|</span>
+                <span>Agriculture: 0</span><span class="divider">|</span>
+                <span>Engineering: 0</span><span class="divider">|</span>
+                <span>Steel: 0</span><span class="divider">|</span>
+                <span>Administrative: 0</span><span class="divider">|</span>
+                <span>Accident: 0</span><span class="divider">|</span>
+                <span>Event: 0</span><span class="divider">|</span>
+                <span>Near Miss: 0</span>
+            </div>
+        </section>
+    </main>
+
+    <!-- Filter Modal -->
+    <div id="filter-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Filter Options</h2>
+            <form id="filter-form">
+                <h3>Commodity</h3>
+                <label><input type="checkbox" name="commodity" value="Petroleum"> Petroleum</label><br>
+                <label><input type="checkbox" name="commodity" value="Minerals"> Minerals</label><br>
+                <label><input type="checkbox" name="commodity" value="Consumer Goods"> Consumer Goods</label><br>
+                <label><input type="checkbox" name="commodity" value="Agriculture"> Agriculture</label><br>
+                <label><input type="checkbox" name="commodity" value="Engineering"> Engineering</label><br>
+                <label><input type="checkbox" name="commodity" value="Steel"> Steel</label><br>
+                <label><input type="checkbox" name="commodity" value="Administrative"> Administrative</label><br>
+                <h3>Type of Incident</h3>
+                <label><input type="checkbox" name="incident" value="Accident"> Accident</label><br>
+                <label><input type="checkbox" name="incident" value="Event"> Event</label><br>
+                <label><input type="checkbox" name="incident" value="Near Miss"> Near Miss</label><br>
+                <h3>Location Covered</h3>
+                <label><input type="checkbox" name="location" value="Luzon"> Luzon</label><br>
+                <label><input type="checkbox" name="location" value="Visayas"> Visayas</label><br>
+                <label><input type="checkbox" name="location" value="Mindanao"> Mindanao</label><br>
+                <h3>Month</h3>
+                <input type="text" name="month" placeholder="e.g., January"><br>
+                <h3>Year</h3>
+                <input type="text" name="year" placeholder="e.g., 2025"><br>
+                <button type="button" id="apply-filters">Apply Filters</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Report Generation Modal -->
+    <div id="report-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-report-modal">&times;</span>
+            <h2>Generate Report</h2>
+            <form id="report-form">
+                <h3>Lost Working Time</h3>
+                <label>Total Man-days lost due to incidents in current month:</label>
+                <input type="number" name="man_days_lost_current" required><br>
+                <label>Total Man-days lost in current month due to incidents in previous months:</label>
+                <input type="number" name="man_days_lost_previous" required><br>
+
+                <h3>HSE Training during the month</h3>
+                <label>No. of persons who received training:</label>
+                <input type="number" name="training_persons" required><br>
+                <label>No. of training sessions held:</label>
+                <input type="number" name="training_sessions" required><br>
+                <label>No. of training man-hours:</label>
+                <input type="number" name="training_hours" required><br>
+
+                <h3>HSE Audits during the month</h3>
+                <label>No. of Field Audits:</label>
+                <input type="number" name="field_audits" required><br>
+                <label>No. of Facility Audits:</label>
+                <input type="number" name="facility_audits" required><br>
+
+                <h3>Routine Activity Risk Assessments (RARA)</h3>
+                <label>No. of RARA performed during the month:</label>
+                <input type="number" name="rara_performed" required><br>
+
+                <button type="button" id="submit-report">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>
